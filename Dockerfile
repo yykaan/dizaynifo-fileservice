@@ -1,8 +1,7 @@
 FROM maven:3.5-jdk-11 AS build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
-ADD /mvn/settings.xml /root/.m2/settings.xml
-
+ADD mvn/settings.xml /root/.m2/settings.xml
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM gcr.io/distroless/java
