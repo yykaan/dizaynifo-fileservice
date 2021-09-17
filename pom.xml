@@ -9,7 +9,6 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.irka</groupId>
-    <version>0.0.1</version>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>fileservice</artifactId>
@@ -94,7 +93,14 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+        </dependencyManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>TasarlaSat Github Registry</name>
+            <url>https://maven.pkg.github.com/yykaan/tasarlasat-infrastructure</url>
+        </repository>
+    </distributionManagement>
 
 
     <build>
