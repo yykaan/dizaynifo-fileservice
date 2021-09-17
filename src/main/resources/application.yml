@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: file-service
+  config:
+    import: optional:configserver:${SPRING_CLOUD_CONFIG_URI:http://localhost:8888}
+  cloud:
+    config:
+      uri: ${CONFIG_SERVICE_URI:lb://config-server}
+      fail-fast: true
+
+server:
+  port: ${PORT:7000}
+file:
+  upload:
+    dir: ${FILE_UPLOAD_DIR:/Users/kaanyilmaz/Documents/upload}
+
+
