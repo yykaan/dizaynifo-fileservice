@@ -31,7 +31,7 @@
     <server>
       <id>github</id>
       <username>yyilmazkaan@gmail.com</username>
-      <password>${repo.pwd}</password>
+      <password>${repo.pass}</password>
     </server>
   </servers>
 </settings>
