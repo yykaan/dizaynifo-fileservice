@@ -11,6 +11,8 @@ spring:
       uri: ${CONFIG_SERVICE_URI:lb://config-service}
       fail-fast: true
       enabled: true
+      label: test
+      profile: test
 
 server:
   port: ${PORT:7000}
