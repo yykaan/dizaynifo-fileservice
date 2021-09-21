@@ -49,6 +49,17 @@ management:
       exposure:
         include: prometheus
 
+oauth:
+  secret: ${OAUTH_SECRET_KEY:2ho7WQWbbJofjZgK1UiQQHGPCw4MVCZojzTvJK8ls2Y2Sl9NfgqHku37yTkFPssx}
+
+# minute
+jwt:
+  expiration-time: 300
+
+ca:
+  gateway:
+    is-enabled: false
+
 backbone:
   app:
     version: 1.0.0
