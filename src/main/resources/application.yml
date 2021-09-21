@@ -1,21 +1,64 @@
+server:
+  port: ${PORT:7000}
 spring:
   application:
     name: file-service
-  config:
-    import: optional:configserver:${SPRING_CLOUD_CONFIG_URI:http://config-service}
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-service
-      uri: ${CONFIG_SERVICE_URI:lb://config-service}
-      fail-fast: true
+  servlet:
+    multipart:
       enabled: true
-      label: test
-      profile: test
+      file-size-threshold: 10KB
+      max-file-size: 20MB
+      max-request-size: 30MB
+  redis:
+    host: ${REDIS_HOST:tasarlasat-cache}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:redisPass123}
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://db:3306/file?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: root
+    password: Dalgaboyu71_
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  sleuth:
+    integration:
+      enabled: true
+    sampler:
+      rate: 1
+  zipkin:
+    base-url: http://tasarlasat-zipkin:9411
 
-server:
-  port: ${PORT:7000}
+eureka:
+  instance:
+    hostname: tasarlasat-eurekaserver
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: ${EUREKA_URI:http://tasarlasat-eurekaserver:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
+backbone:
+  app:
+    version: 1.0.0
+
+logging:
+  pattern:
+    console: '%d{HH:mm:ss.SSS} %mdc [%thread] %-5level %logger{36} - %msg%n'
+
+sentry:
+  dsn: https://78c851480ad14640a74cfc137e64ccf3@o1007644.ingest.sentry.io/5970623
 file:
   upload:
     dir: ${FILE_UPLOAD_DIR:/Users/kaanyilmaz/Documents/upload}
