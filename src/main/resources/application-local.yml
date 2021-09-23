@@ -1,0 +1,77 @@
+server:
+  port: ${PORT:7000}
+spring:
+  application:
+    name: file-service
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 10KB
+      max-file-size: 20MB
+      max-request-size: 30MB
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:redisPass123}
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/file?createDatabaseIfNotExist=true
+    username: tasarlasatadmin
+    password: tasarlasatadmin
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  sleuth:
+    integration:
+      enabled: true
+    sampler:
+      rate: 1
+  zipkin:
+    base-url: http://localhost:9411
+
+eureka:
+  instance:
+    hostname: tasarlasat-eurekaserver
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
+oauth:
+  secret: ${OAUTH_SECRET_KEY:2ho7WQWbbJofjZgK1UiQQHGPCw4MVCZojzTvJK8ls2Y2Sl9NfgqHku37yTkFPssx}
+
+# minute
+jwt:
+  expiration-time: 300
+
+ca:
+  gateway:
+    is-enabled: false
+
+backbone:
+  app:
+    version: 1.0.0
+
+logging:
+  pattern:
+    console: '%d{HH:mm:ss.SSS} %mdc [%thread] %-5level %logger{36} - %msg%n'
+
+sentry:
+  dsn: https://78c851480ad14640a74cfc137e64ccf3@o1007644.ingest.sentry.io/5970623
+file:
+  upload:
+    dir: ${FILE_UPLOAD_DIR:/Users/kaanyilmaz/Documents/upload}
+
+
