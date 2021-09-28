@@ -1,16 +1,16 @@
 package com.irka.tasarlasat.fileservice.controller;
 
+import com.irka.common.model.FileModel;
 import com.irka.infrastructure.rest.BaseResponse;
 import com.irka.tasarlasat.fileservice.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -24,6 +24,11 @@ public class FileUploadController {
                                          @RequestParam String fileType,
                                          @RequestParam String userId){
         return new BaseResponse<>(fileService.storeFile(multipartFile,fileType, userId));
+    }
+
+    @GetMapping(value = "/download")
+    public BaseResponse<byte[]> upload(@RequestParam Long fileId) throws IOException {
+        return new BaseResponse<>(fileService.getFileContent(fileId));
     }
 
 }

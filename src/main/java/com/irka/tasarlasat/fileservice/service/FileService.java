@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -138,8 +139,7 @@ public class FileService extends GenericService<FileEntity, QFileEntity> {
 
     public byte[] getFileContent(Long fileId) throws IOException {
         FileEntity fileEntity = fileRepository.getById(fileId);
-        InputStream in = getClass()
-                .getResourceAsStream(Paths.get(fileEntity.getUploadDir() + File.separator + fileEntity.getFileName()).toAbsolutePath().normalize().toString());
+        InputStream in = new FileInputStream(Paths.get(fileEntity.getUploadDir() + File.separator + fileEntity.getFileName()).toAbsolutePath().normalize().toString());
         return IOUtils.toByteArray(in);
     }
 
