@@ -1,12 +1,10 @@
 package com.irka.tasarlasat.fileservice.service;
 
 import com.irka.common.enums.FileType;
-import com.irka.infrastructure.entity.QBaseEntity;
 import com.irka.infrastructure.rest.BaseError;
 import com.irka.infrastructure.rest.BaseException;
 import com.irka.infrastructure.service.GenericService;
 import com.irka.tasarlasat.fileservice.entity.FileEntity;
-import com.irka.tasarlasat.fileservice.entity.QFileEntity;
 import com.irka.tasarlasat.fileservice.repository.FileRepository;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +31,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-public class FileService extends GenericService<FileEntity, QFileEntity> {
+public class FileService extends GenericService<FileEntity> {
     private Path fileStorageLocation;
     private final FileRepository fileRepository;
 
@@ -41,7 +39,7 @@ public class FileService extends GenericService<FileEntity, QFileEntity> {
     private String fileUploadDir;
 
     public FileService(FileRepository repository) {
-        super(repository, QFileEntity.class);
+        super(repository);
         this.fileRepository = repository;
     }
 
@@ -94,7 +92,7 @@ public class FileService extends GenericService<FileEntity, QFileEntity> {
             newDoc.setUploadDir(this.fileStorageLocation.toAbsolutePath().toString());
             Long fileId = fileRepository.save(newDoc).getId();
 
-            fileName = fileId + fileExtension;
+            fileName = userId+"_"+multipartFile.getOriginalFilename();
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
 
             Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -112,15 +110,6 @@ public class FileService extends GenericService<FileEntity, QFileEntity> {
         throw new BaseException(BaseError.ENUM.GENERIC_ERROR);
     }
 
-    public List<FileEntity> getUserFilesByType(String user, FileType fileType){
-        List<FileEntity> fileEntityList = toList(fileRepository.findAll(getPredicate().and(getEntityPath().get("createdBy").eq(user)
-                .and(getPredicate().and(getEntityPath().get("fileType").eq(fileType))))));
-        if (!fileEntityList.isEmpty()){
-            return fileEntityList;
-        }else {
-            return new ArrayList<>();
-        }
-    }
 
     public ResponseEntity<ByteArrayResource> downloadFile(Long fileId) throws IOException {
         FileEntity fileEntity = fileRepository.getById(fileId);
@@ -141,10 +130,5 @@ public class FileService extends GenericService<FileEntity, QFileEntity> {
         FileEntity fileEntity = fileRepository.getById(fileId);
         InputStream in = new FileInputStream(Paths.get(fileEntity.getUploadDir() + File.separator + fileEntity.getFileName()).toAbsolutePath().normalize().toString());
         return IOUtils.toByteArray(in);
-    }
-
-    @Override
-    public QBaseEntity getBase() {
-        return QFileEntity.fileEntity._super;
     }
 }
