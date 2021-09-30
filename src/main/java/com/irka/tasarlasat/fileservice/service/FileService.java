@@ -78,12 +78,6 @@ public class FileService extends GenericService<FileEntity> {
             if(originalFileName.contains("..")) {
                 throw new BaseException(BaseError.ENUM.UPLOAD_FILE_DIRECTORY_CANNOT_BE_CREATED);
             }
-            String fileExtension = "";
-            try {
-                fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-            } catch(Exception e) {
-                fileExtension = "";
-            }
 
             FileEntity newDoc = new FileEntity();
             newDoc.setDocumentFormat(multipartFile.getContentType());
