@@ -17,8 +17,8 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     url: jdbc:mysql://db:3306/file?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: dizaynifoadmin
-    password: dizaynifoadmin
+    username: tasarlasatadmin
+    password: tasarlasatadmin
   jpa:
     show-sql: true
     hibernate:
