@@ -1,8 +1,8 @@
-package com.irka.tasarlasat.fileservice.mapper;
+package com.irka.dizaynifo.fileservice.mapper;
 
 import com.irka.common.model.FileModel;
 import com.irka.infrastructure.mapper.BaseMapper;
-import com.irka.tasarlasat.fileservice.entity.FileEntity;
+import com.irka.dizaynifo.fileservice.entity.FileEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

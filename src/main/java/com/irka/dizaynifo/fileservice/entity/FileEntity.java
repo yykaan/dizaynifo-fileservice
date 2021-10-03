@@ -1,12 +1,10 @@
-package com.irka.tasarlasat.fileservice.entity;
+package com.irka.dizaynifo.fileservice.entity;
 
 import com.irka.common.enums.FileType;
 import com.irka.infrastructure.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.envers.Audited;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import javax.persistence.*;
 

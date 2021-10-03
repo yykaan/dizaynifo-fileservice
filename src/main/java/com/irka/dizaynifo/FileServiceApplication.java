@@ -1,4 +1,4 @@
-package com.irka.tasarlasat;
+package com.irka.dizaynifo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableFeignClients
 @EnableEurekaClient
-@SpringBootApplication(scanBasePackages = {"com.irka.infrastructure", "com.irka.tasarlasat", "com.irka.common"})
-@EntityScan({"com.irka.infrastructure", "com.irka.tasarlasat", "com.irka.common"})
-@EnableJpaRepositories(basePackages = {"com.irka.infrastructure", "com.irka.tasarlasat", "com.irka.common"})
+@SpringBootApplication(scanBasePackages = {"com.irka.infrastructure", "com.irka.dizaynifo", "com.irka.common"})
+@EntityScan({"com.irka.infrastructure", "com.irka.dizaynifo", "com.irka.common"})
+@EnableJpaRepositories(basePackages = {"com.irka.infrastructure", "com.irka.dizaynifo", "com.irka.common"})
 public class FileServiceApplication {
 
     public static void main(String[] args) {

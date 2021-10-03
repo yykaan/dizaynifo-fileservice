@@ -1,11 +1,11 @@
-package com.irka.tasarlasat.fileservice.service;
+package com.irka.dizaynifo.fileservice.service;
 
 import com.irka.common.enums.FileType;
 import com.irka.infrastructure.rest.BaseError;
 import com.irka.infrastructure.rest.BaseException;
 import com.irka.infrastructure.service.GenericService;
-import com.irka.tasarlasat.fileservice.entity.FileEntity;
-import com.irka.tasarlasat.fileservice.repository.FileRepository;
+import com.irka.dizaynifo.fileservice.entity.FileEntity;
+import com.irka.dizaynifo.fileservice.repository.FileRepository;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,9 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 @Service

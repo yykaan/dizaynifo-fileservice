@@ -1,4 +1,4 @@
-package com.irka.tasarlasat.fileservice.config;
+package com.irka.dizaynifo.fileservice.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.irka.infrastructure.interceptor.JWTInterceptor;
@@ -12,7 +12,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableFeignClients(basePackages = "com.irka.tasarlasat.fileservice.client")
+@EnableFeignClients(basePackages = "com.irka.dizaynifo.fileservice.client")
 @EnableConfigurationProperties
 @Configuration
 public class GeneralConfig {

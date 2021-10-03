@@ -1,4 +1,4 @@
-package com.irka.tasarlasat.fileservice.config;
+package com.irka.dizaynifo.fileservice.config;
 
 import com.irka.infrastructure.security.filter.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -15,13 +15,13 @@
     <version>0.0.1</version>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <java.version>1.8</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>11</java.version>
         <maven.test.skip>false</maven.test.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
     </properties>
 
@@ -97,8 +97,8 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>TasarlaSat Github Registry</name>
-            <url>https://maven.pkg.github.com/yykaan/tasarlasat-infrastructure</url>
+            <name>dizaynifo Github Registry</name>
+            <url>https://maven.pkg.github.com/yykaan/dizaynifo-infrastructure</url>
         </repository>
     </distributionManagement>
 
@@ -109,8 +109,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

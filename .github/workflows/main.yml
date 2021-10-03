@@ -28,12 +28,12 @@ jobs:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-    - name: Build tasarlasat-fileservice
+    - name: Build dizaynifo-fileservice
       env:
         SUPER_SECRET: ${{ secrets.CR_PAT }}
       run: |
-        docker build --build-arg SUPER_SECRET=$SUPER_SECRET --tag ghcr.io/yykaan/tasarlasat-fileservice:latest -f Dockerfile .
-        docker push ghcr.io/yykaan/tasarlasat-fileservice:latest
+        docker build --build-arg SUPER_SECRET=$SUPER_SECRET --tag ghcr.io/yykaan/dizaynifo-fileservice:latest -f Dockerfile .
+        docker push ghcr.io/yykaan/dizaynifo-fileservice:latest
 
 
 

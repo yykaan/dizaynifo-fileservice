@@ -1,7 +1,7 @@
-package com.irka.tasarlasat.fileservice.repository;
+package com.irka.dizaynifo.fileservice.repository;
 
 import com.irka.infrastructure.repository.GenericRepository;
-import com.irka.tasarlasat.fileservice.entity.FileEntity;
+import com.irka.dizaynifo.fileservice.entity.FileEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,11 +1,9 @@
-package com.irka.tasarlasat.fileservice.controller;
+package com.irka.dizaynifo.fileservice.controller;
 
-import com.irka.common.model.FileModel;
 import com.irka.infrastructure.rest.BaseResponse;
-import com.irka.tasarlasat.fileservice.service.FileService;
+import com.irka.dizaynifo.fileservice.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
