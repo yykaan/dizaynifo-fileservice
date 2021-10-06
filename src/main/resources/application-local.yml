@@ -17,8 +17,8 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     url: jdbc:mysql://localhost:3306/file?createDatabaseIfNotExist=true
-    username: tasarlasatadmin
-    password: tasarlasatadmin
+    username: dizaynifoadmin
+    password: dizaynifoadmin
   jpa:
     show-sql: true
     hibernate:
@@ -32,6 +32,26 @@ spring:
       rate: 1
   zipkin:
     base-url: http://localhost:9411
+  kafka:
+    bootstrap-servers: http://localhost:9093
+
+kafka:
+  admin: ${KAFKA_ADMIN_ENABLE:false}
+  topics:
+    design:
+      name: ${KAFKA_DESIGN_UPLOAD_TOPIC:design-upload}
+      num-partitions: 3
+      replication-factor: 1
+      consumer:
+        groupId: file-service-design-upload
+        auto-offset-reset: earliest
+    unapproveddesign:
+      name: ${KAFKA_UNAPPROVED_DESIGN_TOPIC:unapproveddesign-upload}
+      num-partitions: 3
+      replication-factor: 1
+      consumer:
+        groupId: file-service-unapproveddesign-upload
+        auto-offset-reset: earliest
 
 eureka:
   instance:

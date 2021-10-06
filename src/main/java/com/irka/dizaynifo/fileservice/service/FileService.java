@@ -1,11 +1,15 @@
 package com.irka.dizaynifo.fileservice.service;
 
 import com.irka.common.enums.FileType;
+import com.irka.common.model.DesignerModel;
+import com.irka.common.model.FileUploadModel;
 import com.irka.infrastructure.rest.BaseError;
 import com.irka.infrastructure.rest.BaseException;
 import com.irka.infrastructure.service.GenericService;
 import com.irka.dizaynifo.fileservice.entity.FileEntity;
 import com.irka.dizaynifo.fileservice.repository.FileRepository;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -17,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +32,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class FileService extends GenericService<FileEntity> {
@@ -66,33 +72,26 @@ public class FileService extends GenericService<FileEntity> {
         }
     }
 
-    public Long storeFile(MultipartFile multipartFile,
-                          String fileType,
-                          String userId) {
-        createUserUploadDirectory(userId);
-        String originalFileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        String fileName;
-        try {
-            if(originalFileName.contains("..")) {
-                throw new BaseException(BaseError.ENUM.UPLOAD_FILE_DIRECTORY_CANNOT_BE_CREATED);
-            }
+    public Long storeFile(FileUploadModel fileUploadModel) throws IOException {
+        byte[] designContent = fileUploadModel.getDesignContent();
+        String designName = fileUploadModel.getDesignName();
+        String designContentType = fileUploadModel.getContentType();
+        DesignerModel designerModel = fileUploadModel.getDesignerModel();
+        FileType fileType = fileUploadModel.getFileType();
 
-            FileEntity newDoc = new FileEntity();
-            newDoc.setDocumentFormat(multipartFile.getContentType());
-            newDoc.setFileName(userId+"_"+multipartFile.getOriginalFilename());
-            newDoc.setFileType(FileType.valueOf(fileType));
-            newDoc.setUploadDir(this.fileStorageLocation.toAbsolutePath().toString());
-            Long fileId = fileRepository.save(newDoc).getId();
+        String userId = String.valueOf(designerModel.getId());
+        createUserUploadDirectory(userId+"_"+designerModel.getUsername());
 
-            fileName = userId+"_"+multipartFile.getOriginalFilename();
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
 
-            Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return fileId;
-        } catch (IOException ex) {
-            throw new BaseException(BaseError.ENUM.UPLOAD_FILE_DIRECTORY_CANNOT_BE_CREATED);
-        }
+        FileEntity newDoc = new FileEntity();
+        newDoc.setFileName(designName);
+        newDoc.setFileType(fileType);
+        newDoc.setDocumentFormat(designContentType);
+        newDoc.setUploadDir(this.fileStorageLocation.toAbsolutePath().toString());
+        Long fileId = fileRepository.save(newDoc).getId();
+        FileUtils.writeByteArrayToFile(new File(this.fileStorageLocation.toAbsolutePath() + File.separator + fileId + designName), designContent);
+        return fileId;
     }
 
     public FileEntity getFileById(Long fileId){
@@ -120,7 +119,7 @@ public class FileService extends GenericService<FileEntity> {
 
     public byte[] getFileContent(Long fileId) throws IOException {
         FileEntity fileEntity = fileRepository.getById(fileId);
-        InputStream in = new FileInputStream(Paths.get(fileEntity.getUploadDir() + File.separator + fileEntity.getFileName()).toAbsolutePath().normalize().toString());
+        InputStream in = new FileInputStream(Paths.get(fileEntity.getUploadDir() + File.separator + fileId + fileEntity.getFileName()).toAbsolutePath().normalize().toString());
         return IOUtils.toByteArray(in);
     }
 }
