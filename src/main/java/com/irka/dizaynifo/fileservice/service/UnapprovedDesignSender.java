@@ -18,6 +18,6 @@ public class UnapprovedDesignSender {
     private String topic;
 
     public void send(UnapprovedDesignModel unapprovedDesignModel) {
-        kafkaTemplate.send(new ProducerRecord<>(topic, unapprovedDesignModel.getFileId().toString(), unapprovedDesignModel));
+        kafkaTemplate.send(new ProducerRecord<>(topic, unapprovedDesignModel.getFileId(), unapprovedDesignModel));
     }
 }

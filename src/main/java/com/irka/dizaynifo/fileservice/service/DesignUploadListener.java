@@ -26,7 +26,7 @@ public class DesignUploadListener {
     public void listenDesignUpload(List<FileUploadModel> fileUploadModelList) {
         log.info("Consuming message from topic: {}. Batch size: {}", topic, fileUploadModelList.size());
         for (FileUploadModel fileUploadModel : fileUploadModelList){
-            Long fileId;
+            String fileId;
             try {
                 fileId = fileService.storeFile(fileUploadModel);
                 UnapprovedDesignModel unapprovedDesignModel = new UnapprovedDesignModel();

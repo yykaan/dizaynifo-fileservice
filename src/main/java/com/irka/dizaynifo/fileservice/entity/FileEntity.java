@@ -4,27 +4,52 @@ import com.irka.common.enums.FileType;
 import com.irka.infrastructure.entity.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
+import org.bson.types.Binary;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
+import java.util.Date;
 
-@Audited
 @Getter
 @Setter
-@Entity
-@Table(name = "FILE")
-public class FileEntity extends BaseEntity {
+@Document
+public class FileEntity{
 
-    @Column(name = "file_name")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private String id;
+
+    @Version
+    private Integer version;
+
+    @CreatedBy
+    private String createdBy;
+
+    @CreatedDate
+    private Date createdDate;
+
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @LastModifiedDate
+    private Date updatedDate;
+
+    private boolean deleted = false;
+
     private String fileName;
 
-    @Column(name = "document_format")
     private String documentFormat;
 
-    @Column(name = "upload_dir")
-    private String uploadDir;
-
     @Enumerated(EnumType.STRING)
-    @Column(name = "file_type")
     private FileType fileType;
+
+    private Binary content;
+
+    private long size;
+
+    private long userId;
 }

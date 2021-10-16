@@ -31,8 +31,8 @@ public class FileUploadController {
     }*/
 
     @GetMapping(value = "/download")
-    public BaseResponse<byte[]> upload(@RequestParam Long fileId) throws IOException {
-        return new BaseResponse<>(fileService.getFileContent(fileId));
+    public BaseResponse<byte[]> download(@RequestParam String fileId) throws IOException {
+        return new BaseResponse<>(fileService.getFileById(fileId).getContent().getData());
     }
 
 }
