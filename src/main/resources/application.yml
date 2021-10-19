@@ -33,7 +33,7 @@ spring:
   zipkin:
     base-url: http://dizaynifo-zipkin:9411
   kafka:
-    bootstrap-servers: http://kafka:9093
+    bootstrap-servers: http://kafka:9092
 
 kafka:
   admin: ${KAFKA_ADMIN_ENABLE:false}
