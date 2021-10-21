@@ -34,6 +34,11 @@ spring:
     base-url: http://dizaynifo-zipkin:9411
   kafka:
     bootstrap-servers: http://dizaynifo-kafka:9092
+  data:
+    mongodb:
+      host: dizaynifo-mongo
+      port: 27017
+      database: 'file'
 
 kafka:
   admin: ${KAFKA_ADMIN_ENABLE:false}
