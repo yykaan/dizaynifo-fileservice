@@ -51,27 +51,36 @@ public class FileService {
     private final FileRepository fileRepository;
 
     public String storeFile(FileUploadModel fileUploadModel) throws IOException {
-        byte[] designContent = fileUploadModel.getDesignContent();
-        String designName = fileUploadModel.getDesignName();
-        String designContentType = fileUploadModel.getContentType();
-        DesignerModel designerModel = fileUploadModel.getDesignerModel();
-        FileType fileType = fileUploadModel.getFileType();
+        try {
+            byte[] designContent = fileUploadModel.getDesignContent();
+            String designName = fileUploadModel.getDesignName();
+            String designContentType = fileUploadModel.getContentType();
+            DesignerModel designerModel = fileUploadModel.getDesignerModel();
+            FileType fileType = fileUploadModel.getFileType();
 
 
-        FileEntity fileEntity = new FileEntity();
-        fileEntity.setFileName(designName);
-        fileEntity.setFileType(fileType);
-        fileEntity.setDocumentFormat(designContentType);
-        fileEntity.setContent(new Binary(designContent));
-        fileEntity.setSize(designContent.length);
-        fileEntity.setUserId(designerModel.getId());
+            FileEntity fileEntity = new FileEntity();
+            fileEntity.setFileName(designName);
+            fileEntity.setFileType(fileType);
+            fileEntity.setDocumentFormat(designContentType);
+            fileEntity.setContent(new Binary(designContent));
+            fileEntity.setSize(designContent.length);
+            fileEntity.setUserId(designerModel.getId());
 
-        return fileRepository.save(fileEntity).getId();
+            return fileRepository.save(fileEntity).getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BaseException(BaseError.ENUM.GENERIC_ERROR);
+        }
     }
 
     public FileEntity getFileById(String fileId){
-        if (fileRepository.existsById(fileId)){
-            return fileRepository.findById(fileId).orElseThrow();
+        try {
+            if (fileRepository.existsById(fileId)){
+                return fileRepository.findById(fileId).orElseThrow();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         throw new BaseException(BaseError.ENUM.GENERIC_ERROR);
     }
